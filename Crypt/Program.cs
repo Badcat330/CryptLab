@@ -69,15 +69,15 @@ namespace Crypt
         }
 
         /// <summary>
-        /// 
+        /// Method for writing in file
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="name"></param>
-        static void WriteFile(string text, string name)
+        /// <param name="text">Text you want save</param>
+        /// <param name="path">Where you want to save text</param>
+        static void WriteFile(string text, string path)
         {
             try
             {
-                File.WriteAllText(name,  text);
+                File.WriteAllText(path,  text);
                 Console.WriteLine("File was saved");
             }
             catch (ArgumentException)
@@ -106,6 +106,10 @@ namespace Crypt
             }
         }
 
+        /// <summary>
+        /// Method for making alphabet in random order
+        /// </summary>
+        /// <returns>Random alphabet</returns>
         static string RandomAlphabet()
         {
             string alphabet = "";
@@ -124,6 +128,11 @@ namespace Crypt
             return alphabet;
         }
         
+        /// <summary>
+        /// Method for pair encoding
+        /// </summary>
+        /// <param name="text">Text you want to encrypt</param>
+        /// <returns>Encrypted text</returns>
         static string PairCode(string text)
         {
             string alphabet = RandomAlphabet();
@@ -151,6 +160,12 @@ namespace Crypt
             return result;
         }
 
+        /// <summary>
+        /// Method for pair decrypting 
+        /// </summary>
+        /// <param name="text">Text we want to decrypt</param>
+        /// <param name="key">Key for decrypting</param>
+        /// <returns>Decrypted text</returns>
         static string PairDeCode(string text, string key)
         {
             string result = "";
@@ -178,7 +193,12 @@ namespace Crypt
             return result;
         }
 
-        static string RomCode(string text)
+        /// <summary>
+        /// Method for Rome encrypting 
+        /// </summary>
+        /// <param name="text">Text we want to encrypt</param>
+        /// <returns>Encrypted text</returns>
+        static string RomeCode(string text)
         { 
            int key = Random.Next();
            while (key % 26 == 0)
@@ -209,6 +229,12 @@ namespace Crypt
            return result;
         }
         
+        /// <summary>
+        /// Method for Rome decrypting
+        /// </summary>
+        /// <param name="text">Text we want to decrypt</param>
+        /// <param name="key">Key for decrypting</param>
+        /// <returns>Decrypted text</returns>
         static string RomDeCode(string text, int key)
         {
             string result = "";
@@ -235,6 +261,9 @@ namespace Crypt
             return result;
         }
 
+        /// <summary>
+        /// Menu method
+        /// </summary>
         static void Menu()
         {
             string text = "";
@@ -258,18 +287,30 @@ namespace Crypt
                         Console.WriteLine(text);
                         break;
                     case 3:
-                        text = RomCode(text);
-                        break;
+                        text = RomeCode(text);
+                            break;
                     case 4:
                         Console.WriteLine("Input Key");
                         text = RomDeCode(text, Read());
                         break;
                     case 5:
                         text = PairCode(text);
-                        break;
+                            break;
                     case 6:
                         Console.WriteLine("Input Key");
-                        text = PairDeCode(text, Console.ReadLine());
+                        try
+                        {
+                            text = PairDeCode(text, Console.ReadLine());
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            Console.WriteLine("Wrong type of key");
+                        }
+                        catch (Exception exception)
+                        {
+                            Console.WriteLine("Something got wrong");
+                            Console.WriteLine(exception.Message);
+                        }
                         break;
                     case 7:
                         Console.WriteLine("Input Path");
@@ -287,7 +328,15 @@ namespace Crypt
         
         static void Main()
         {
-            Menu();
+            try
+            {
+                Menu();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Something go wrong");
+                Console.WriteLine(exception.Message);
+            }
         }
     }
 }
