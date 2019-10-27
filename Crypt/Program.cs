@@ -267,16 +267,16 @@ namespace Crypt
         static void Menu()
         {
             string text = "";
+            Console.WriteLine("1. Read all text from \n" +
+                              "2. Print \n" +
+                              "3. Rom encrypt \n" +
+                              "4. Rom decrypt \n" +
+                              "5. Pair encrypt \n" +
+                              "6. Pair decrypt \n" +
+                              "7. Save in \n" +
+                              "8. Exit");
             do
             {
-                Console.WriteLine("1. Read all text from \n" +
-                                  "2. Print \n" +
-                                  "3. Rom encrypt \n" +
-                                  "4. Rom decrypt \n" +
-                                  "5. Pair encrypt \n" +
-                                  "6. Pair decrypt \n" +
-                                  "7. Save in \n" +
-                                  "8. Exit");
                 switch (Read())
                 {
                     case 1:
